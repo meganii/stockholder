@@ -18,6 +18,7 @@ class Stock extends Component {
     super(props);
     this.state = {
       itemOpen: false,
+      delOpen: false,
       data: [],
       code: props.code,
       name: props.name,
@@ -34,6 +35,14 @@ class Stock extends Component {
   handleClose = () => {
     this.setState({itemOpen: false});
   };
+
+  handleDelOpen = () => {
+    this.setState({delOpen: true});
+  }
+
+  handleDelClose = () => {
+    this.setState({delOpen: false});
+  }
 
   handleDelete = () => {
     this.setState({itemOpen: false});
@@ -87,13 +96,26 @@ class Stock extends Component {
           label="Delete"
           primary={true}
           keyboardFocused={true}
-          onTouchTap={this.handleDelete}
+          onTouchTap={this.handleDelOpen}
         />,
         <FlatButton
           label="Update"
           primary={true}
           keyboardFocused={true}
           onTouchTap={this.handleUpdate}
+        />
+      ];
+    const deleteActions = [
+        <FlatButton
+          label="Cancel"
+          primary={true}
+          onTouchTap={this.handleDelClose}
+        />,
+        <FlatButton
+          label="Discard"
+          primary={true}
+          keyboardFocused={true}
+          onTouchTap={this.handleDelete}
         />
       ];
 
@@ -138,6 +160,14 @@ class Stock extends Component {
             <TextField name="name" floatingLabelText="名称" value={this.state.name} onChange={this.handleInputChange} />
             <TextField name="avgBuyPrice" floatingLabelText="購入金額" value={this.state.avgBuyPrice} onChange={this.handleInputChange} />
             <TextField name="numberOfSharesHeld" floatingLabelText="購入株数" value={this.state.numberOfSharesHeld} onChange={this.handleInputChange}/>
+        </Dialog>
+        <Dialog
+          actions={deleteActions}
+          modal={false}
+          open={this.state.delOpen}
+          onRequestClose={this.handleDelClose}
+        >
+          本当に消していい?
         </Dialog>
       </div>
     );
