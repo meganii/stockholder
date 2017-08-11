@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
+import './TotalBalance.css';
 
 class TotalBlance extends Component {
   
   constructor() {
     super();
     this.state = {
+      total: 0,
       balance: 0,
+      percentage: 0,
     }
   }
   
@@ -22,16 +25,31 @@ class TotalBlance extends Component {
       const stocks = Object.keys(list).map((key)=> {
         return Object.assign(list[key], {key});
       });
-      const sum = stocks.map(stock => stock.currentPrice * stock.numberOfSharesHeld).reduce((a,b) => {return a + b},0)
+      const current_sum = stocks.map(stock => stock.currentPrice * stock.numberOfSharesHeld).reduce((a,b) => {return a + b},0)
+      const purchace_sum = stocks.map(stock => stock.avgBuyPrice * stock.numberOfSharesHeld).reduce((a,b) => {return a + b},0)
+
       this.setState({
-        balance: sum,
+        total: current_sum,
+        balance: current_sum - purchace_sum,
+        percentage: Number( (((current_sum - purchace_sum)/purchace_sum) * 100).toFixed(2)),
       });
     });
   }
   
   render(){
+
+    const balanceComponent = (total, balance) => {
+      const balanceStr = String(balance).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+      const sign = balance < 0 ? '-' : '+';
+      const signName = balance < 0 ? 'minus' : 'plus';
+      return <span className={signName}>{sign}{balanceStr}({sign}{this.state.percentage}%)</span>;
+    }
+
     return (
-      <div className="TotalBlance">Total Balance: { String(this.state.balance).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</div>
+      <div className="TotalBlance">
+        <div>Total: {String(this.state.total).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</div>
+        <div>Balance: {balanceComponent(this.state.total, this.state.balance)}</div>
+      </div>
     );
   }
 }
