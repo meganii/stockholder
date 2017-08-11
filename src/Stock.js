@@ -8,6 +8,7 @@ import Dialog from 'material-ui/Dialog';
 import StockIndicator from './StockIndicator';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import {convertToConmaFmt} from './StringUtils';
 
 import * as firebase from 'firebase';
 
@@ -98,14 +99,19 @@ class Stock extends Component {
 
     const currentPrice = this.props.currentPrice;
     const previousPrice = this.props.previousPrice;
-    const profitAndLoss = (currentPrice - this.props.avgBuyPrice) * this.props.numberOfSharesHeld;
+    const profitAndLoss = Number((currentPrice - this.props.avgBuyPrice) * this.props.numberOfSharesHeld).toFixed(0);
     return (
       <div className="ListItem">
         <ListItem
           key={'stockitem-' + this.props.index}
           className="Stock"
-          primaryText={this.props.name}
-          secondaryText={this.props.code + "\n 損益: " + String(profitAndLoss).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}
+          primaryText={this.props.code + ' ' + this.props.name}
+          secondaryText={
+              <p>
+                {this.props.numberOfSharesHeld}株 x {this.props.avgBuyPrice}円<br />
+                損益: {convertToConmaFmt(profitAndLoss)}
+              </p>
+          }
           secondaryTextLines={2}
           leftIcon={<div className="rightIcon">A</div>}
           rightAvatar={

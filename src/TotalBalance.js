@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import './TotalBalance.css';
+import {convertToConmaFmt} from './StringUtils'
 
 class TotalBlance extends Component {
   
@@ -39,7 +40,7 @@ class TotalBlance extends Component {
   render(){
 
     const balanceComponent = (total, balance) => {
-      const balanceStr = String(balance).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+      const balanceStr = convertToConmaFmt(balance);
       const sign = balance < 0 ? '-' : '+';
       const signName = balance < 0 ? 'minus' : 'plus';
       return <span className={signName}>{sign}{balanceStr}({sign}{this.state.percentage}%)</span>;
@@ -47,7 +48,7 @@ class TotalBlance extends Component {
 
     return (
       <div className="TotalBlance">
-        <div>Total: {String(this.state.total).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</div>
+        <div>Total: {convertToConmaFmt(this.state.total)}</div>
         <div>Balance: {balanceComponent(this.state.total, this.state.balance)}</div>
       </div>
     );
