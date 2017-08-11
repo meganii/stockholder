@@ -1,0 +1,73 @@
+{
+    "dataset": {
+        "collapse": null, 
+        "column_index": null, 
+        "column_names": [
+            "Date", 
+            "Open", 
+            "High", 
+            "Low", 
+            "Close", 
+            "Volume"
+        ], 
+        "data": [
+            [
+                "2017-08-04", 
+                4170.0, 
+                4170.0, 
+                4105.0, 
+                4115.0, 
+                166700.0
+            ], 
+            [
+                "2017-08-03", 
+                4235.0, 
+                4235.0, 
+                4170.0, 
+                4190.0, 
+                228000.0
+            ], 
+            [
+                "2017-08-02", 
+                4165.0, 
+                4225.0, 
+                4140.0, 
+                4215.0, 
+                315400.0
+            ], 
+            [
+                "2017-08-01", 
+                4075.0, 
+                4140.0, 
+                4060.0, 
+                4135.0, 
+                171100.0
+            ], 
+            [
+                "2017-07-31", 
+                4140.0, 
+                4140.0, 
+                4080.0, 
+                4080.0, 
+                226800.0
+            ]
+        ], 
+        "database_code": "TSE", 
+        "database_id": 473, 
+        "dataset_code": "2593", 
+        "description": "<p>Unadjusted stock prices for Ito En, Ltd. from the Tokyo Stock Exchange.</p>", 
+        "end_date": "2017-08-04", 
+        "frequency": "daily", 
+        "id": 9792549, 
+        "limit": null, 
+        "name": "Ito En, Ltd. — 2593", 
+        "newest_available_date": "2017-08-04", 
+        "oldest_available_date": "2007-01-04", 
+        "order": null, 
+        "premium": false, 
+        "refreshed_at": "2017-08-04T11:21:02.562Z", 
+        "start_date": "2017-07-30", 
+        "transform": null, 
+        "type": "Time Series"
+    }
+}

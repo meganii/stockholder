@@ -1,0 +1,18 @@
+.Stock {
+  overflow: hidden;
+  border: 1px solid #999;
+  text-align: left;
+}
+
+.Stock__item {
+  padding: 1em;
+  background-color: #DDD;
+}
+
+.Stock__item + .Stock__item {
+  border-top: 1px solid #EEE;
+}
+
+.rightAvator {
+  float: left;
+}
