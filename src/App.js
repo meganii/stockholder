@@ -10,6 +10,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import ReactPullToRefresh from 'react-pull-to-refresh';
 import Subheader from 'material-ui/Subheader';
+import AutoComplete from 'material-ui/AutoComplete';
 
 import request from 'request';
 import * as firebase from 'firebase';
@@ -148,7 +149,7 @@ class App extends Component {
         }}>
           <div className="refresh-touch-area">
             <Subheader>Pull to Refresh</Subheader>
-            <TotalBalance /> 
+            <TotalBalance />
           </div>
         </ReactPullToRefresh>
         <Dialog

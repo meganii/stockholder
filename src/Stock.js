@@ -86,6 +86,9 @@ class Stock extends Component {
   }
 
   render() {
+
+    if (!this.props.viewable) { return <div className="diable"></div> };
+
     const actions = [
         <FlatButton
           label="Cancel"
