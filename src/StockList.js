@@ -50,6 +50,22 @@ class StockList extends Component {
     });
   }
 
+  handleSort = (sort) => {
+    console.log(sort);
+    let newstocks = this.state.stocks.sort((a, b) => {
+      const aPrice = a.currentPrice - a.previousPrice;
+      const bPrice = b.currentPrice - b.previousPrice;
+      if ('DESC' === sort) {
+        return aPrice > bPrice ? -1 : 1;  // desc
+      } else {
+        return aPrice > bPrice ? 1 : -1;  // asc
+      }
+    });
+    this.setState({
+      stocks: newstocks
+    });
+  }
+
   componentDidMount() {
     const stocksRef = firebase.database().ref('/stocks');
     let list = [];
@@ -82,6 +98,7 @@ class StockList extends Component {
           currentPrice={stock.currentPrice}
           previousPrice={stock.previousPrice}
           viewable={stock.viewable}
+          holder={stock.holder}
         />
         <Divider />
       </div>

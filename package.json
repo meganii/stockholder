@@ -5,6 +5,7 @@
   "dependencies": {
     "ajv": "^5.2.2",
     "firebase": "^4.2.0",
+    "material-design-icons": "^3.0.1",
     "material-ui": "^0.18.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

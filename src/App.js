@@ -11,6 +11,9 @@ import TextField from 'material-ui/TextField';
 import ReactPullToRefresh from 'react-pull-to-refresh';
 import Subheader from 'material-ui/Subheader';
 import AutoComplete from 'material-ui/AutoComplete';
+import SortIcon from 'material-ui/svg-icons/content/sort';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 import request from 'request';
 import * as firebase from 'firebase';
@@ -120,6 +123,10 @@ class App extends Component {
     return true;
   }
 
+  _callref(sort) {
+    this.refs.child.handleSort(sort);
+  }
+
   render() {
     const actions = [
         <FlatButton
@@ -139,14 +146,22 @@ class App extends Component {
       <div className="App">
         <AppBar
           title="Stock Holder"
-          iconElementRight={<FlatButton label="Add" onTouchTap={this.handleOpen} />}
+          iconElementRight={<FlatButton label="Add" onTouchTap={this.handleOpen}></FlatButton>}
+          iconElementLeft={
+            <IconMenu
+              iconButtonElement={<IconButton><SortIcon /></IconButton>}
+              anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+              targetOrigin={{horizontal: 'left', vertical: 'top'}}
+            >
+              <MenuItem primaryText='降順' onTouchTap={this._callref.bind(this, 'DESC')}/>
+              <MenuItem primaryText='昇順' onTouchTap={this._callref.bind(this, 'ASC')}/>
+            </IconMenu>
+          }
         /> 
         <ReactPullToRefresh
           onRefresh={(s,v) => {this.handleRefresh(s,v)}}
           className="PulltoRefresh"
-          style={{
-          textAlign: 'center'
-        }}>
+          style={{textAlign: 'center'}}>
           <div className="refresh-touch-area">
             <Subheader>Pull to Refresh</Subheader>
             <TotalBalance />
@@ -164,7 +179,7 @@ class App extends Component {
           <TextField name="avgBuyPrice" floatingLabelText="購入金額" value={this.state.avgBuyPrice} onChange={this.handleInputChange} />
           <TextField name="numberOfSharesHeld" floatingLabelText="購入株数" value={this.state.numberOfSharesHeld} onChange={this.handleInputChange}/>
         </Dialog>
-        <StockList />
+        <StockList ref='child' handleSort={this.handleSort} />
       </div>
     );
   }

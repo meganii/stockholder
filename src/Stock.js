@@ -9,6 +9,7 @@ import StockIndicator from './StockIndicator';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import {convertToConmaFmt} from './StringUtils';
+import FaceIcon from 'material-ui/svg-icons/action/face';
 
 import * as firebase from 'firebase';
 
@@ -138,7 +139,7 @@ class Stock extends Component {
               </p>
           }
           secondaryTextLines={2}
-          leftIcon={<div className="rightIcon">A</div>}
+          leftIcon={<FaceIcon color={'red'} >{this.props.holder}</FaceIcon>}
           rightAvatar={
             <div className="rightAvator">
               <StockIndicator
