@@ -31,6 +31,7 @@ class App extends Component {
       numberOfSharesHeld: 0,
       currentPrice: 0,
       previousPrice: 0,
+      holder: '',
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -178,6 +179,7 @@ class App extends Component {
           <TextField name="name" floatingLabelText="名称" value={this.state.name} onChange={this.handleInputChange} />
           <TextField name="avgBuyPrice" floatingLabelText="購入金額" value={this.state.avgBuyPrice} onChange={this.handleInputChange} />
           <TextField name="numberOfSharesHeld" floatingLabelText="購入株数" value={this.state.numberOfSharesHeld} onChange={this.handleInputChange}/>
+          <TextField name="holder" floatingLabelText="保有者" value={this.state.holder} onChange={this.handleInputChange}/>
         </Dialog>
         <StockList ref='child' handleSort={this.handleSort} />
       </div>

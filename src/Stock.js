@@ -25,6 +25,7 @@ class Stock extends Component {
       name: props.name,
       avgBuyPrice: props.avgBuyPrice,
       numberOfSharesHeld: props.numberOfSharesHeld,
+      holder: props.holder,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -58,7 +59,7 @@ class Stock extends Component {
     this.setState({itemOpen: false});
     var stocksRef = firebase.database().ref('stocks');
     let updates = {};
-    var query = stocksRef.orderByChild('code').equalTo(this.props.code);
+    var query = stocksRef.orderByKey().equalTo(this.props.stockKey);
     query.once('value').then(snap => {
       const list = snap.val();
       const stocks = Object.keys(list).map(key=> Object.assign(list[key], {key}));
@@ -70,6 +71,7 @@ class Stock extends Component {
           name: this.state.name,
           numberOfSharesHeld: this.state.numberOfSharesHeld,
           previousPrice: stock.previousPrice,
+          holder: this.state.holder,
         };
       });
       firebase.database().ref().update(updates);
@@ -126,6 +128,9 @@ class Stock extends Component {
     const currentPrice = this.props.currentPrice;
     const previousPrice = this.props.previousPrice;
     const profitAndLoss = Number((currentPrice - this.props.avgBuyPrice) * this.props.numberOfSharesHeld).toFixed(0);
+
+    const faceColer = this.props.holder != 'noi' ? 'blue' : 'red';
+
     return (
       <div className="ListItem">
         <ListItem
@@ -139,7 +144,7 @@ class Stock extends Component {
               </p>
           }
           secondaryTextLines={2}
-          leftIcon={<FaceIcon color={'red'} >{this.props.holder}</FaceIcon>}
+          leftIcon={<FaceIcon color={faceColer} >{this.props.holder}</FaceIcon>}
           rightAvatar={
             <div className="rightAvator">
               <StockIndicator
@@ -164,6 +169,7 @@ class Stock extends Component {
             <TextField name="name" floatingLabelText="名称" value={this.state.name} onChange={this.handleInputChange} />
             <TextField name="avgBuyPrice" floatingLabelText="購入金額" value={this.state.avgBuyPrice} onChange={this.handleInputChange} />
             <TextField name="numberOfSharesHeld" floatingLabelText="購入株数" value={this.state.numberOfSharesHeld} onChange={this.handleInputChange}/>
+            <TextField name="holder" floatingLabelText="保有者" value={this.state.holder} onChange={this.handleInputChange}/>
         </Dialog>
         <Dialog
           actions={deleteActions}
